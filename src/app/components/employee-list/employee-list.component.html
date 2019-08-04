@@ -1,0 +1,6 @@
+
+<div appHighlight class="employee_class"
+     *ngFor="let employeeInput of employees">
+    <app-employee [employee]="employeeInput" (deleteEvent)="deleteFn_Parent($event)"></app-employee>
+     
+</div>
