@@ -17,7 +17,7 @@
   </div> -->
 
 
-    <!-- Structural Directive -->
+  <!-- Structural Directive -->
   <!-- Array:{{ arrayElem }} -->
   <!-- ngFor -->
   <!-- <div *ngFor="let elem of arrayElem"> -->
@@ -39,17 +39,18 @@
   <!-- <h1 [ngClass]="{'back-color':title=='my-app'}">This is a Blue Heading</h1> -->
   <!-- <app-employee-list></app-employee-list>-->
 
-<!-- BuiltIn Pipes -->
-<!-- <h1>{{title | lowercase}}</h1>
+  <!-- BuiltIn Pipes -->
+  <!-- <h1>{{title | lowercase}}</h1>
 <h1>{{date | date:'medium'}}</h1>
 {{date}} -->
 
-<!-- Custom Pipes -->
-<!-- <h1>Decoration:{{title | decorate:'+':'%' | lowercase | uppercase }}</h1> -->
+  <!-- Custom Pipes -->
+  <!-- <h1>Decoration:{{title | decorate:'+':'%' | lowercase | uppercase }}</h1> -->
 
   <!-- sample componet -->
   <!-- <app-sample></app-sample> -->
 
-
-  <app-employee-list></app-employee-list>
-  </div>
+  <!-- <app-add-employee></app-add-employee>
+  <app-employee-list></app-employee-list> -->
+  <router-outlet></router-outlet>
+</div>
