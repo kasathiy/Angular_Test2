@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+        <label>Username:</label>
+        <input name="username" id="username" ngModel required #user="ngModel">
+        <span *ngIf="!user.valid && user.touched">Username is required</span>
+    </div>
+    <div class="form-group">
+        <label>Password:</label>
+        <input name="password" id="password" minlength="4" ngModel required #pass="ngModel">
+        <span *ngIf="!pass.valid && pass.touched && pass.errors?.minlength">Minimum 4 letters are required</span>
+        <span *ngIf="!pass.valid && !pass.errors?.minlength && pass.touched">Password is required</span>
+
+    </div>
+    <button [disabled]="!f.valid" type="submit">Submit</button>
+</form>

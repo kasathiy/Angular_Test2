@@ -11,15 +11,26 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { EmployeeComponent } from './components/employee/employee.component';
 import { DeleteService } from './delete.service';
 import { Delete1Service } from './delete1.service';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { logging } from 'protractor';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { ReactLoginComponent } from './components/react-login/react-login.component';
+import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
+import { LogoutComponent } from './components/logout/logout.component';
+import { AuthGuard } from './guards/auth.guard';
 
-const appRoutes = [{
-  path: "employeeList", component: EmployeeListComponent
-}, {
-  path: "employeeAdd", component: AddEmployeeComponent
-}];
+
+const appRoutes = [
+  {path:"",component:ReactLoginComponent},
+  {
+    path: "home", component: HomePageComponent,  canActivate: [AuthGuard], children: [
+      { path: "addEmployee", component: AddEmployeeComponent },
+      { path: "employeeList", component: EmployeeListComponent }
+    ]
+  }
+];
 
 @NgModule({
   declarations: [
@@ -29,19 +40,27 @@ const appRoutes = [{
     DecoratePipe,
     EmployeeListComponent,
     EmployeeComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    HomePageComponent,
+    LoginComponent,
+    ReactLoginComponent,
+    LogoutComponent,
+
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-exports:[
-   
-  ],                     
-  providers: [{provide:DeleteService,useClass:Delete1Service}],                           
-    bootstrap: [AppComponent]
+  exports: [
+
+  ],
+  providers: [ 
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },,
+    { provide: DeleteService, useClass: Delete1Service }],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
